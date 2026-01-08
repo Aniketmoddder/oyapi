@@ -90,6 +90,20 @@ def lookup_debug(s, t, q):
         "Developer": "Basic Coders | @SajagOG"
     }
 
+@app.route("/")
+def home():
+    return jsonify({
+        "message": "API is running",
+        "endpoints": {
+            "/num": "Query by phone number",
+            "/aadhar": "Query by Aadhaar number"
+        },
+        "usage": {
+            "/num?number=XXXXXXXXXX": "Get info by phone",
+            "/aadhar?aadhar=XXXXXXXXXXXX": "Get info by Aadhaar"
+        }
+    })
+
 @app.route("/num")
 def num():
     n = request.args.get("number")
@@ -110,5 +124,6 @@ def aad():
     signup(s)
     return lookup_debug(s,"aadhaar",a)
 
+# Vercel requires this
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run()
